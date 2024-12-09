@@ -6,7 +6,7 @@
 /*   By: rrabeari <rrabeari@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 10:51:38 by rrabeari          #+#    #+#             */
-/*   Updated: 2024/12/08 15:19:55 by rrabeari         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:28:59 by rrabeari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ void	eat(t_philo *philo)
 		time = get_current_time() - philo->start_time;
 		print_message("has taken a fork", philo, time);
 		pthread_mutex_lock(philo->l_fork);
+		time = get_current_time() - philo->start_time;
 		print_message("has taken a fork", philo, time);
 		pthread_mutex_lock(philo->eat);
 		philo->have_eaten += 1;
-		philo->last_eat = time;
+		philo->last_eat = get_current_time();
 		pthread_mutex_unlock(philo->eat);
 		print_message("is eating", philo, time);
 		ft_usleep(philo->data->time_to_eat);
@@ -60,8 +61,18 @@ void	ft_sleep(t_philo *philo)
 void	*routine(void *args)
 {
 	t_philo	*philo;
+	size_t	tmp;
 
 	philo = (t_philo *) args;
+	if (philo->data->nbr_philos == 1)
+	{
+		tmp = get_current_time() - philo->start_time;
+		print_message("has taken a fork", philo, tmp);
+		ft_usleep(philo->data->time_to_die);
+		tmp = get_current_time() - philo->start_time + 1;
+		print_message("is died", philo, tmp);
+		return (NULL);
+	}
 	if (philo->id % 2 == 0)
 		ft_usleep(5);
 	while (!dead_check(philo))

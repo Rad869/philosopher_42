@@ -6,7 +6,7 @@
 /*   By: rrabeari <rrabeari@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 11:58:13 by rrabeari          #+#    #+#             */
-/*   Updated: 2024/12/08 10:46:36 by rrabeari         ###   ########.fr       */
+/*   Updated: 2024/12/09 07:35:37 by rrabeari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	init_philo(t_philo *philos, t_general *general, t_data *data)
 			philos[i].r_fork = &data->forks[nbr_philos - 1];
 		else
 			philos[i].r_fork = &data->forks[i - 1];
+		i++;
 	}
 }
 

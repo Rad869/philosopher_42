@@ -6,7 +6,7 @@
 /*   By: rrabeari <rrabeari@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 09:59:37 by rrabeari          #+#    #+#             */
-/*   Updated: 2024/12/08 15:22:36 by rrabeari         ###   ########.fr       */
+/*   Updated: 2024/12/09 14:58:59 by rrabeari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	ft_usleep(size_t time);
 void	print_message(char *mes, t_philo *philo, size_t time);
 void	*monitor_func(void *arg);
 void	*routine(void *args);
-void	lanch_loop(t_general *general, t_data *data, t_philo *philo);
+void	init_thread(t_data *data, t_philo *philos, t_general *general);
 
 //-----------Destroy all mutex--------------------------------
 

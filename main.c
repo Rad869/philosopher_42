@@ -6,7 +6,7 @@
 /*   By: rrabeari <rrabeari@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/22 10:09:14 by rrabeari          #+#    #+#             */
-/*   Updated: 2024/12/08 15:18:23 by rrabeari         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:02:45 by rrabeari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,10 @@ int	main(int argc, char *argv[])
 	init_general(&general, philos);
 	init_data(&data, argc, argv, forks);
 	init_fork(forks, data.nbr_philos);
-	lanch_loop(&general, &data, philos);
+	init_philo(philos, &general, &data);
+	if (data.must_eat == 0)
+		return (destroy_data(&general, forks, data.nbr_philos), 0);
+	init_thread(&data, philos, &general);
 	destroy_data(&general, forks, data.nbr_philos);
+	return (0);
 }

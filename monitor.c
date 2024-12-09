@@ -6,7 +6,7 @@
 /*   By: rrabeari <rrabeari@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/08 14:18:31 by rrabeari          #+#    #+#             */
-/*   Updated: 2024/12/08 15:23:59 by rrabeari         ###   ########.fr       */
+/*   Updated: 2024/12/09 08:44:58 by rrabeari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,23 +33,26 @@ static void	increment_eat(t_philo *philo, t_general *general)
 void	manage_dead(t_philo *philo)
 {
 	int		i;
-	size_t	time_to_die;
 	size_t	time;
+	size_t	lst;
 
 	i = 0;
-	time_to_die = philo->data->time_to_die;
 	while (i < philo->data->nbr_philos)
 	{
-		time = get_current_time() - philo[i].start_time;
+		time = get_current_time();
 		pthread_mutex_lock(philo[i].eat);
-		if (philo[i].last_eat - time > time_to_die)
+		lst = philo[i].last_eat;
+		pthread_mutex_unlock(philo[i].eat);
+		if (time - lst > philo->data->time_to_die)
 		{
 			pthread_mutex_lock(philo[i].dead);
 			*philo[i].is_dead = 1;
-			print_message("is died", &philo[i], time);
 			pthread_mutex_unlock(philo[i].dead);
+			pthread_mutex_lock(philo->write);
+			printf("%zu %d is died\n", time - philo[i].start_time, i + 1);
+			pthread_mutex_unlock(philo->write);
+			break ;
 		}
-		pthread_mutex_unlock(philo[i].eat);
 		i++;
 	}
 }

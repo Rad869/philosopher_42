@@ -6,7 +6,7 @@
 /*   By: rrabeari <rrabeari@student.42antananari    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/07 10:42:29 by rrabeari          #+#    #+#             */
-/*   Updated: 2024/12/08 15:15:15 by rrabeari         ###   ########.fr       */
+/*   Updated: 2024/12/09 15:05:15 by rrabeari         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,11 @@ int	check_error(int argc, char *argv[])
 		return (print_error("Error of argument\n"));
 	while (i < argc)
 	{
-		if (ft_atoi(argv[i]) == 0)
+		if (ft_atoi(argv[i]) == 0 && i != 5)
 			return (print_error("Input argument zero\n"));
 		i++;
 	}
+	if (ft_atoi(argv[1]) > 200)
+		return (print_error("Error\nMore than 200 Philosophers\n"));
 	return (1);
 }
